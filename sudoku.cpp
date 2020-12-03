@@ -27,6 +27,10 @@ int main(int argc, char const *argv[]) {
 	} else {
 		readSudoku();
 	}
+	cout << "---------" << endl;
+	long long count;
+	solve(0, count);
+	cout << "total sudoku: " << count << endl;
 	return 0;
 }
 
@@ -83,6 +87,32 @@ void readSudoku() {
 				row[i] |= f;
 				column[j] |= f;
 			}
+		}
+	}
+}
+
+void solve(int pos, long long &cnt) {
+	if (pos == 81) {
+		cnt++;
+		printSudoku();
+		return;
+	}
+	if (grid[pos] > 0) {
+		solve(pos+1, cnt);
+		return;
+	}
+	for (int i = 1; i <= 9; i++) {
+		if (check(pos, i) == 0) {
+			int f = 1 << i;
+			grid[pos] = i;
+			block[pos/27*3+pos%9/3] |= f;
+			row[pos/9] |= f;
+			column[pos%9] |= f;
+			solve(pos+1, cnt);
+			grid[pos] = 0;
+			block[pos/27*3+pos%9/3] ^= f;
+			row[pos/9] ^= f;
+			column[pos%9] ^= f;
 		}
 	}
 }
