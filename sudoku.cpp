@@ -8,21 +8,10 @@ vector<int> block(9,0);
 vector<int> row(9,0);
 vector<int> column(9,0);
 
+int check(int pos, int num);
 void readSudoku();
-
-int check(int x, int y, int num) {
-	int f = 1 << num;
-	if (block[x/3*3+y/3] & f) {
-		return 1;
-	}
-	if (row[x] & f) {
-		return 2;
-	}
-	if (column[y] & f) {
-		return 3;
-	}
-	return 0;
-}
+void solve(int pos, long long &cnt);
+void printSudoku();
 
 int main(int argc, char const *argv[]) {
 	if (argc > 1) {
@@ -34,8 +23,23 @@ int main(int argc, char const *argv[]) {
 		}
 		cin.rdbuf(ifs.rdbuf());
 		readSudoku();
+		printSudoku();
 	} else {
 		readSudoku();
+	}
+	return 0;
+}
+
+int check(int pos, int num) {
+	int f = 1 << num;
+	if (block[pos/27*3+pos%9/3] & f) {
+		return 1;
+	}
+	if (row[pos/9] & f) {
+		return 2;
+	}
+	if (column[pos%9] & f) {
+		return 3;
 	}
 	return 0;
 }
@@ -54,7 +58,7 @@ void readSudoku() {
 			if ('1' <= s[j] && s[j] <= '9') {
 				int inum = s[j] - '0';
 				int f = 1 << inum;
-				int state = check(i, j, inum);
+				int state = check(i*9+j, inum);
 				if (state > 0) {
 					if (state == 1) {
 						cerr << "error: invalid input\n\t"
@@ -81,4 +85,14 @@ void readSudoku() {
 			}
 		}
 	}
+}
+
+void printSudoku() {
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			cout << grid[i*9+j];
+		}
+		cout << "\n";
+	}
+	cout << endl;
 }
