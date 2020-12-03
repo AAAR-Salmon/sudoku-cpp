@@ -30,7 +30,7 @@ int main(int argc, char const *argv[]) {
 	cout << "---------" << endl;
 	long long count;
 	solve(0, count);
-	cout << "total sudoku: " << count << endl;
+	cout << "total sudoku count: " << count << endl;
 	return 0;
 }
 
@@ -67,17 +67,17 @@ void readSudoku() {
 					if (state == 1) {
 						cerr << "error: invalid input\n\t"
 								 << inum << "(at " << i << ":" << j << ")"
-								 << " has appeared in block[" << i/3*3+j/3 << "]"
+								 << " has already appeared in block[" << i/3*3+j/3 << "]"
 								 << endl;
 					} else if (state == 2) {
 						cerr << "error: invalid input\n\t"
 								 << inum << "(at " << i << ":" << j << ")"
-								 << " has appeared in row[" << i << "]"
+								 << " has already appeared in row[" << i << "]"
 								 << endl;
 					} else if (state == 3) {
 						cerr << "error: invalid input\n\t"
 								 << inum << "(at " << i << ":" << j << ")"
-								 << " has appeared in column[" << j << "]"
+								 << " has already appeared in column[" << j << "]"
 								 << endl;
 					}
 					exit(1);
