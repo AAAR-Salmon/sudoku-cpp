@@ -14,6 +14,7 @@ void solve(int pos, long long &cnt);
 void printSudoku();
 
 int main(int argc, char const *argv[]) {
+	cout << "<input sudoku>" << endl;
 	if (argc > 1) {
 		ifstream ifs;
 		ifs.open(argv[1]);
@@ -27,7 +28,7 @@ int main(int argc, char const *argv[]) {
 	} else {
 		readSudoku();
 	}
-	cout << "---------" << endl;
+	cout << "<output sudoku>" << endl;
 	long long count;
 	solve(0, count);
 	cout << "total sudoku count: " << count << endl;
