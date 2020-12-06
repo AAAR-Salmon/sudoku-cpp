@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 vector<int> grid(81,0);
@@ -14,6 +15,7 @@ void solve(int pos, long long &cnt);
 void printSudoku();
 
 int main(int argc, char const *argv[]) {
+	// input
 	cout << "<input sudoku>" << endl;
 	if (argc > 1) {
 		ifstream ifs;
@@ -28,6 +30,10 @@ int main(int argc, char const *argv[]) {
 	} else {
 		readSudoku();
 	}
+	auto hints = count_if(grid.begin(), grid.end(), [](int x) {return x > 0;});
+	cout << "hints count: " << hints << "\n" << endl;
+
+	// output
 	cout << "<output sudoku>" << endl;
 	long long count;
 	solve(0, count);
